@@ -17,14 +17,13 @@ h1{
 }
 #response{
     position: relative;
-    background-color: transparent;
 }
 #response::after{
     content: '|';
     position: absolute;
     right: 0;
     color: white;
-    background-color: transparent;
+    background-color: #121212;
     width: 100%;
     animation: typing 3s steps(14) alternate infinite,
                 line 1s infinite;

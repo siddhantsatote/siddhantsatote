@@ -25,7 +25,7 @@ h1{
     color: white;
     background-color: #121212;
     width: 100%;
-    animation: typing 3s steps(15) alternate infinite,
+    animation: typing 3s steps(16) alternate infinite,
                 line 1s infinite;
 }
 @keyframes typing{

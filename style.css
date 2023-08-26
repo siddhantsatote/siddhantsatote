@@ -17,6 +17,7 @@ h1{
 }
 #response{
     position: relative;
+    background-color: #121212;
 }
 #response::after{
     content: '|';

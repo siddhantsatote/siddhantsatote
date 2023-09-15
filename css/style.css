@@ -20,6 +20,7 @@ body {
   right: 10%;
   margin: 1.7rem;
   z-index: 3;
+  cursor:pointer;
 }
 
 .menu .bar {

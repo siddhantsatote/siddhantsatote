@@ -17,8 +17,8 @@ body {
 }
 .menu {
   position: absolute;
-  top: 3%;
-  right: 10%;
+  top: 1%;
+  right: 1%;
   margin: 1.7rem;
   z-index: 3;
   cursor: pointer;

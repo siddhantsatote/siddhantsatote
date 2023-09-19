@@ -54,3 +54,8 @@
   color: whitesmoke;
   font-family: "Courier New", Courier, monospace;
 }
+@media only screen and (max-width: 800px) {
+  .form {
+    width: 85%;
+  }
+}

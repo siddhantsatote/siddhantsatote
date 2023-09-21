@@ -10,12 +10,13 @@
     <link rel="stylesheet" type="text/css" href="css/brand.css" />
     <link rel="stylesheet" type="text/css" href="css/contact.css" />
   </head>
-  <body>
+  <body onload="myfunction()">
     <a id="menu" class="menu"
       ><div class="bar"></div>
       <div class="bar"></div>
       <div class="bar"></div
     ></a>
+    <!-- <label id="dark-change"></label> -->
     <div id="menuslide">
       <div class="menubar">
         <div class="menu-body">
@@ -47,6 +48,9 @@
         headerul.classList.toggle("active");
       });
     </script>
+    
+    <img class="bg-img" id="intro-video" src="assets/95e995ad1f2856fcd6d000abef6729db.gif" alt="" >
+   
     <main class="home" id="home">
       <video
         id="video"
@@ -56,6 +60,7 @@
         plays-inline
         src="assets/OBJECT-FX_001_CLEAN_1-vp9-chrome.webm"
       ></video>
+      
       <h1 id="response">{working on it}}</h1>
       <a href="#about" class="down-icon">
         <ion-icon name="chevron-down-outline"></ion-icon>
@@ -79,7 +84,7 @@
     <main class="core-skills">
       <div class="skills-section">
         <div class="skills">
-          <h1>HTML</h1>
+          <div class="skill-name"><h1>HTML</h1><h1>84%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels-w"></div>
@@ -92,7 +97,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>CSS</h1>
+          <div class="skill-name"><h1>CSS</h1><h1>84%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels-w"></div>
@@ -105,7 +110,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>JavaScript</h1>
+          <div class="skill-name"><h1>JavaScript</h1><h1>48%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels-w"></div>
@@ -118,7 +123,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>BootStrap</h1>
+          <div class="skill-name"><h1>BootStrap</h1><h1>72%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels-w"></div>
@@ -131,7 +136,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>Figma</h1>
+          <div class="skill-name"><h1>Figma</h1><h1>48%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels-w"></div>
@@ -146,12 +151,13 @@
       </div>
 
       <div class="skills-video">
-       <img src="assets/9ba7b2044d71655aa27460ba2b5fa372.gif"></img>
+        <!-- <img src="assets/gem-textured (1).png"></img> -->
+        <img src="assets/9ba7b2044d71655aa27460ba2b5fa372.gif"></img>
       </div>
 
       <div class="skills-section">
         <div class="skills">
-          <h1>MongoDB</h1>
+          <div class="skill-name"><h1>Mongodb</h1><h1>12%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels"></div>
@@ -164,7 +170,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>Expressjs</h1>
+          <div class="skill-name"><h1>Expressjs</h1><h1>12%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels"></div>
@@ -177,7 +183,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>Reactjs</h1>
+          <div class="skill-name"><h1>Reactjs</h1><h1>12%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels"></div>
@@ -190,7 +196,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>Nodejs</h1>
+          <div class="skill-name"><h1>Nodejs</h1><h1>12%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels"></div>
@@ -203,7 +209,7 @@
           </div>
         </div>
         <div class="skills">
-          <h1>MySQL</h1>
+          <div class="skill-name"><h1>MySQL</h1><h1>60%</h1></div>
           <div class="level">
             <div class="levels-w"></div>
             <div class="levels-w"></div>
@@ -249,12 +255,19 @@
       <ion-icon name="chevron-up-outline"></ion-icon>
     </a>
     <script>
-      var content = document.getElementsByTagName("body")[0];
-      var darkMode = document.getElementById("dark-change");
-      darkMode.addEventListener("click", function () {
-        darkMode.classList.toggle("active");
-        content.classList.toggle("night");
-      });
+      // var content = document.getElementsByTagName("body")[0];
+      // var darkMode = document.getElementById("dark-change");
+      // darkMode.addEventListener("click", function () {
+      //   darkMode.classList.toggle("active");
+      //   content.classList.toggle("night");
+      // });
+
+      var intro_video = document.getElementById("intro-video");
+      function myfunction() {
+        setTimeout(() => {
+          intro_video.style.top = "-100%";
+        }, 2000);
+      }
     </script>
     <script
       type="module"

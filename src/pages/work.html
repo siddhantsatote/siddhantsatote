@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work</title>
+    <link rel="stylesheet" href="../css/work.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="cursor"></div>
+    <a id="menu" class="menu" href="/./index.html"
+      ><div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div
+    ></a>
+    <div class="work-container">
+      <h1 id="response1">{working on it}</h1>
+      <div class="img">
+        <img src="../assets/gem-textured.png" alt="" />
+      </div>
+      <div class="projects">
+        <a href="https://siddhantsatote.github.io/mapaper/" id="response1"
+          >MApaper</a
+        >
+        <a href="https://siddhantsatote.github.io/Fastype/" id="response1"
+          >FasType</a
+        >
+        <a href="https://siddhantsatote.github.io/filevault/" id="response1"
+          >FileVault</a
+        >
+      </div>
+    </div>
+    <script>
+      const cursor = document.querySelector(".cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.pageX + "px";
+        cursor.style.top = e.pageY + "px";
+      });
+    </script>
+  </body>
+</html>

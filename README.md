@@ -1,9 +1,6 @@
 [![MasterHead](https://media.licdn.com/dms/image/v2/D5616AQGcCexbMiLLDA/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1696358605256?e=1734566400&v=beta&t=KiJoF_6A9h4nTkf25kxQkSpUboph-wxfZaL1V9et4_k)](https://rishavchanda.io)
 <h1 align="center">Hi 👋, I'm Siddhant satote</h1>
-<h3 align="center">👋 Full-Stack Web Developer | React & Node.js
-🚀 Exploring Web3, Blockchain, UI/UX Design, & GSAP Animations
-💬 Let's connect! satotecodes@gmail.com
-👉 Check out my projects!</h3>
+<h3 align="center">💬 Let's connect! satotecodes@gmail.com 👉 Check out my projects!</h3>
 <img align="right" alt="Coding" width="400" src="https://i.pinimg.com/originals/ce/8f/43/ce8f4300b653018f79d90fa059967302.gif">
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=siddhantsatote&label=Profile%20views&color=0e75b6&style=flat" alt="siddhantsatote" /> </p>

@@ -10,7 +10,7 @@
 
 - 🔭 I’m currently working on **filevault 2.0**
 
-- 🌱 I’m currently learning **MERN**
+- 🌱 I’m currently learning **DS & AL/ML**
 
 - 👨‍💻 All of my projects are available at [protfolio](siddhantsatote.github.io)
 

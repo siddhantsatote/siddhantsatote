@@ -16,7 +16,7 @@
 
 - 📝 I regularly write articles on [medium](https://medium.com/@satotecodes)
 
-- 💬 Ask me about **MERN, GASP, UI/UX**
+- 💬 Ask me about **MERN, UI/UX**
 
 - 📫 How to reach me **sototecodes@gmail.com**
 

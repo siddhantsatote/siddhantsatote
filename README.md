@@ -24,9 +24,17 @@
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
-<a href="https://linkedin.com/in/siddhant-satote" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="siddhantsatote" height="30" width="40" /></a>
+<!-- <a href="https://linkedin.com/in/siddhant-satote" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="siddhantsatote" height="30" width="40" /></a>
 <a href="https://instagram.com/siddhant_satote" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="@siddhant_satote" height="30" width="40" /></a>
-<a href="https://medium.com/@satotecodes" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/medium.svg" alt="@siddhantsatote" height="30" width="40" /></a>
+<a href="https://medium.com/@satotecodes" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/medium.svg" alt="@siddhantsatote" height="30" width="40" /></a> -->
+   <div>
+        <a href="https://www.linkedin.com/in/siddhantsatote" target="_blank"><img alt="LinkedIn"
+                src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+        <a href="mailto:satotecodes@gmail.com" target="_blank"><img alt="Gmail"
+                src="https://img.shields.io/badge/-Gmail-D14836?style=for-the-badge&logo=Gmail&logoColor=white" /></a>
+        <a href="https://medium.com/@siddhantsatote" target="_blank"><img alt="Medium"
+                src="https://img.shields.io/badge/medium-%2312100E.svg?&style=for-the-badge&logo=medium&logoColor=white" /></a>
+    </div>
 </p>
 
 <div align="left">

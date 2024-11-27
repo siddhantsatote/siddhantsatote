@@ -2,7 +2,7 @@
 [![MasterHead](https://media.licdn.com/dms/image/v2/D5616AQGcCexbMiLLDA/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1696358605256?e=1734566400&v=beta&t=KiJoF_6A9h4nTkf25kxQkSpUboph-wxfZaL1V9et4_k)](https://rishavchanda.io)
 <h1 align="center">Hi 👋, I'm Siddhant satote</h1>
 <h3 align="center">💬 Let's connect! satotecodes@gmail.com 👉 Check out my projects!</h3>
-<img align="right" alt="Coding" width="400" src="https://i.pinimg.com/originals/28/e3/d5/28e3d5e8854fcef138f2a7ad9139da59.gif">
+<img align="right" alt="Coding" width="400" src="https://i.pinimg.com/originals/b0/45/13/b04513415d09e9b27345cd09211089c9.gif">
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=siddhantsatote&label=Profile%20views&color=0e75b6&style=flat" alt="siddhantsatote" /> </p>
 

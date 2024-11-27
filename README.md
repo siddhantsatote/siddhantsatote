@@ -12,7 +12,7 @@
 
 - 🌱 I’m currently learning **DS & AL/ML**
 
-- 👨‍💻 All of my projects are available at [protfolio](siddhantsatote.github.io)
+- 👨‍💻 All of my projects are available at [protfolio](https://read.cv/siddhantsatote)
 
 - 📝 I regularly write articles on [medium](https://medium.com/@satotecodes)
 

@@ -8,7 +8,7 @@
 
 - 🌱 I’m currently learning **DS & AL/ML**
 
-- 📝 I regularly write articles on [medium](https://medium.com/@satotecodes)
+- 📝 I write articles on [medium](https://medium.com/@satotecodes)
 
 - 📫 How to reach me **sototecodes@gmail.com**
 

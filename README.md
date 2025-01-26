@@ -1,7 +1,7 @@
-![Frame 12](https://github.com/user-attachments/assets/0de411b7-fc64-4824-9311-1fd31287047a)
+## ![Frame 12](https://github.com/user-attachments/assets/0de411b7-fc64-4824-9311-1fd31287047a)
 <h1 align="center">Hi 👋, I'm Siddhant satote</h1>
 <h3 align="center">💬 Let's connect! satotecodes@gmail.com 👉 Check out my projects!</h3>
-<img align="right" alt="Coding" width="400" src="https://i.pinimg.com/originals/b0/45/13/b04513415d09e9b27345cd09211089c9.gif">
+<img align="right" alt="Coding" width="400" src="https://i.pinimg.com/originals/7b/6d/ef/7b6def1234d467fcc28e77c9cc7e3eda.gif">
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=siddhantsatote&label=Profile%20views&color=0e75b6&style=flat" alt="siddhantsatote" /> </p>
 

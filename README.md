@@ -6,19 +6,11 @@
 
 <p align="left"> <a href="https://twitter.com/" target="blank"><img src="https://img.shields.io/twitter/follow/?logo=twitter&style=for-the-badge" alt="" /></a> </p>
 
-- 🔭 I’m currently working on **DS-AL-ML Repo**
-
 - 🌱 I’m currently learning **DS & AL/ML**
-
-- 👨‍💻 All of my projects are available at [protfolio](https://read.cv/siddhantsatote)
 
 - 📝 I regularly write articles on [medium](https://medium.com/@satotecodes)
 
-- 💬 Ask me about **MERN, UI/UX**
-
 - 📫 How to reach me **sototecodes@gmail.com**
-
-- ⚡ Fun fact **I am gymrat**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">

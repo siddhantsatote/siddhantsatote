@@ -1,5 +1,5 @@
 <h1 align="center">Hi 👋, I'm Siddhant satote</h1>
-<img align="right" alt="Coding" width="400" src="https://i.pinimg.com/736x/9b/37/66/9b376623ed868699e47033bd0e4a4d92.jpg">
+<!-- <img align="right" alt="Coding" width="400" src="https://i.pinimg.com/736x/9b/37/66/9b376623ed868699e47033bd0e4a4d92.jpg"> -->
 <h3 align="left">💬 Let's connect! satotecodes@gmail.com</h3>
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=siddhantsatote&label=Profile%20views&color=0e75b6&style=flat" alt="siddhantsatote" /> </p>
 <p align="left"> <a href="https://twitter.com/" target="blank"><img src="https://img.shields.io/twitter/follow/?logo=twitter&style=for-the-badge" alt="" /></a> </p>

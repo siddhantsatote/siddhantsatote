@@ -4,7 +4,7 @@
 
 - 🌱 I'm currently learning **AI PROJECTS**
 - 📝 I write articles on [medium](https://medium.com/@satotecodes)
-- 📫 How to reach me **satotecodes@gmail.com**
+- 📫 How to reach me **satotesiddhant@gmail.com**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
@@ -19,6 +19,8 @@
 </p>
 
 ---
+
+<!--
 
 <div align="left">
 
@@ -106,3 +108,5 @@
  </p>
 
 </div>
+
+-->

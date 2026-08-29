@@ -1,0 +1,42 @@
+name: Update Live Contribution Heatmap
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs everyday at 00:00 UTC
+  workflow_dispatch:     # Allows manual run from Actions tab
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-heatmap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate Live Contribution SVG
+        env:
+          GITHUB_USER: ${{ github.repository_owner }}
+        run: |
+          node scripts/update_heatmap.js
+
+      - name: Commit & Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add contrib-heatmap.svg
+          if git diff --staged --quiet; then
+            echo "No heatmap changes to commit."
+          else
+            git commit -m "chore: auto-update live contribution heatmap [skip ci]"
+            git push
+          fi

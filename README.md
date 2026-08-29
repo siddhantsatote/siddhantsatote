@@ -53,17 +53,9 @@
 
 <!-- Live GitHub Metrics & Activity Streak -->
 <h3><code>siddhantsatote@github ~ $ git-stats --activity</code></h3>
-
-<table border="0" align="center" style="border:none; background:transparent;">
-  <tr style="border:none; background:transparent;">
-    <td valign="middle" align="center" style="border:none; padding: 6px;">
-      <img src="https://github-readme-stats.vercel.app/api?username=siddhantsatote&show_icons=true&theme=tokyonight&bg_color=0d1117&title_color=39d353&text_color=c9d1d9&icon_color=58a6ff&border_color=30363d&rank_icon=github&include_all_commits=true&count_private=true" height="170" alt="GitHub Stats" />
-    </td>
-    <td valign="middle" align="center" style="border:none; padding: 6px;">
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=siddhantsatote&theme=tokyonight&background=0d1117&border=30363d&stroke=30363d&ring=39d353&fire=39d353&currStreakNum=f0f6fc&sideNums=c9d1d9&currStreakLabel=58a6ff&sideLabels=8b949e&dates=6e7681" height="170" alt="GitHub Streak Stats" />
-    </td>
-  </tr>
-</table>
+<a href="https://github.com/siddhantsatote">
+  <img src="https://streak-stats.demolab.com/?user=siddhantsatote&theme=tokyonight&background=0d1117&border=30363d&stroke=30363d&ring=39d353&fire=39d353&currStreakNum=f0f6fc&sideNums=c9d1d9&currStreakLabel=58a6ff&sideLabels=8b949e&dates=6e7681" width="550" alt="GitHub Streak Stats" />
+</a>
 
 <br><br>
 

@@ -71,22 +71,7 @@
 
   <br><br>
 
-  <!-- Featured Projects Section -->
-  <h3><code>siddhantsatote@github ~ $ ls -la ./featured_projects/</code></h3>
-
-</div>
-
-| Project | Description | Tech Stack |
-| :--- | :--- | :--- |
-| 🚀 **Nexus AeroLab** | ESP32 TVC Rocket & Monocopter with live WebSocket telemetry & PID control | `ESP32` `C++` `WebSockets` `PID` |
-| 🌱 **goGreen Pro** | Interactive GitHub contribution heatmap pixel studio & automation engine | `Node.js` `JavaScript` `Git Automation` |
-| 🔍 **BannerSizer** | Intelligent computer vision tool for automated billboard & banner resizing | `YOLOv8` `MobileSAM` `Python` `OpenCV` |
-| 📱 **ReelSave** | Android application with on-device OCR extraction & Groq LLaMA 3.3 LLM | `Kotlin` `Jetpack Compose` `Groq LLM` |
-| ⚡ **AtherHacks** | Student hackathon community empowering collegiate builders in Pune | `Community` `Hackathons` `Mentorship` |
-
-<br>
-
-<div align="center">
   <p><code>⚡ Feel free to explore my repositories, open an issue, or connect for collaborations!</code></p>
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0:39d353,50:0e4429,100:0d1117&height=100&section=footer" width="100%" />
+
 </div>

@@ -1,6 +1,6 @@
 /**
- * Live Heatmap SVG Generator for GitHub Profile README
- * Fetches real-time contribution data for user and renders an animated SVG contribution graph.
+ * Live Heatmap SVG Generator for GitHub Profile README (Current Year)
+ * Fetches real-time contribution data for user and renders the current year contribution graph.
  */
 import fs from 'fs';
 import path from 'path';
@@ -10,6 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const USERNAME = process.env.GITHUB_USER || 'siddhantsatote';
+const CURRENT_YEAR = new Date().getFullYear(); // 2026
 
 const THEME_COLORS = {
   0: '#161b22',
@@ -19,9 +20,9 @@ const THEME_COLORS = {
   4: '#39d353'
 };
 
-async function fetchContributions(username) {
-  console.log(`📡 Fetching live contributions for ${username}...`);
-  const url = `https://github-contributions-api.jogruber.de/v4/${username}?y=last`;
+async function fetchContributions(username, year) {
+  console.log(`📡 Fetching live contributions for ${username} (Year: ${year})...`);
+  const url = `https://github-contributions-api.jogruber.de/v4/${username}?y=${year}`;
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Failed to fetch contributions: ${res.statusText}`);
@@ -29,13 +30,30 @@ async function fetchContributions(username) {
   return await res.json();
 }
 
-function renderHeatmapSVG(data) {
+function renderHeatmapSVG(data, targetYear) {
   const contributions = data.contributions || [];
   if (contributions.length === 0) {
     throw new Error('No contribution data found');
   }
 
-  // Width & dimensions matching the original profile theme
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  // Align to Sunday start
+  const firstDay = new Date(contributions[0].date);
+  const firstDayOfWeek = firstDay.getUTCDay(); // 0 = Sun
+
+  // Pad leading days if Jan 1 is not Sunday
+  const paddedContributions = [];
+  for (let p = 0; p < firstDayOfWeek; p++) {
+    paddedContributions.push({
+      date: '',
+      count: 0,
+      level: 0,
+      isPadding: true
+    });
+  }
+  paddedContributions.push(...contributions);
+
   const cellWidth = 11;
   const cellHeight = 11;
   const gap = 3;
@@ -44,9 +62,7 @@ function renderHeatmapSVG(data) {
   const startX = 34;
   const startY = 20;
 
-  // 52 or 53 weeks
-  const totalDays = contributions.length;
-  const totalWeeks = Math.ceil(totalDays / 7);
+  const totalWeeks = Math.ceil(paddedContributions.length / 7);
   const svgWidth = startX + (totalWeeks * colStep) + 20;
   const svgHeight = 152;
 
@@ -57,15 +73,19 @@ function renderHeatmapSVG(data) {
   let cellRects = '';
   let animIndex = 0;
 
-  contributions.forEach((item, index) => {
+  paddedContributions.forEach((item, index) => {
     const weekIndex = Math.floor(index / 7);
     const dayOfWeek = index % 7; // 0 = Sun, 6 = Sat
 
     const x = startX + (weekIndex * colStep);
     const y = startY + (dayOfWeek * rowStep);
 
+    if (item.isPadding) {
+      return; // don't render leading padding cell
+    }
+
     // Month label check on first row (Sunday)
-    if (dayOfWeek === 0) {
+    if (dayOfWeek === 0 && item.date) {
       const dt = new Date(item.date);
       const m = dt.getUTCMonth();
       if (m !== lastMonth) {
@@ -74,8 +94,10 @@ function renderHeatmapSVG(data) {
       }
     }
 
-    const color = THEME_COLORS[item.level] || THEME_COLORS[0];
-    const delay = (animIndex * 0.003).toFixed(3);
+    const isFuture = item.date > todayStr;
+    const level = isFuture ? 0 : (item.level || 0);
+    const color = THEME_COLORS[level] || THEME_COLORS[0];
+    const delay = (animIndex * 0.0025).toFixed(3);
     const countText = item.count === 1 ? '1 contribution' : `${item.count} contributions`;
 
     cellRects += `<rect x="${x}" y="${startY - 6}" width="${cellWidth}" height="${cellHeight}" rx="2.5" fill="${color}" opacity="0">
@@ -107,11 +129,11 @@ ${cellRects}
 
 async function main() {
   try {
-    const data = await fetchContributions(USERNAME);
-    const svg = renderHeatmapSVG(data);
+    const data = await fetchContributions(USERNAME, CURRENT_YEAR);
+    const svg = renderHeatmapSVG(data, CURRENT_YEAR);
     const outputPath = path.join(__dirname, '..', 'contrib-heatmap.svg');
     fs.writeFileSync(outputPath, svg, 'utf-8');
-    console.log(`✅ Successfully updated ${outputPath} with live GitHub contributions!`);
+    console.log(`✅ Successfully updated ${outputPath} with ${CURRENT_YEAR} live contributions!`);
   } catch (err) {
     console.error('Error generating heatmap SVG:', err);
     process.exit(1);

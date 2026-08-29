@@ -78,8 +78,4 @@
 <!-- Bottom Footer Wave -->
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,24,30,40&height=100&section=footer" width="100%" />
 
-<p align="center">
-  <sub>⚡ Crafted by <a href="https://github.com/siddhantsatote">@siddhantsatote</a> &bull; Auto-synced daily via GitHub Actions</sub>
-</p>
-
 </div>

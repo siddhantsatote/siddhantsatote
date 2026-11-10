@@ -1,37 +1,73 @@
-# Setup
+# Animated Profile README System
 
-1. Create the magic repo (must be named exactly your username):
+A stack of animated, editorial SVG cards for Siddhant Satote's GitHub profile (`siddhantsatote/siddhantsatote`).
 
-   ```
-   gh repo create Siddhantsatote --public --clone
-   ```
+Inspired by modern high-contrast editorial typography (Instrument Serif and Space Mono), with vector halftone scanlines, interactive cards, dynamic contribution analytics, and daily GitHub Action automation.
 
-   Or just create it via github.com/new — name: `Siddhantsatote`, public, no README (you already have one).
+---
 
-2. Copy everything in this folder into that repo, then:
+## 🗂 Architecture
 
-   ```
-   cd Siddhantsatote
-   git add .
-   git commit -m "profile: animated ASCII portrait + neofetch card + live contrib heatmap"
-   git push
-   ```
+```
+├── .github/
+│   └── workflows/
+│       └── update-cards.yml       # Daily GitHub Action workflow (06:17 UTC)
+├── cards/
+│   ├── hero.svg                   # Hero banner: name, bio, site, vector halftone portrait
+│   ├── tile-build.svg             # Linked tile 1: Build (40+ repos) [32.5% width]
+│   ├── tile-lead.svg              # Linked tile 2: Lead (AtherHacks) [32.5% width]
+│   ├── tile-explore.svg           # Linked tile 3: Systems (AI & Avionics) [32.5% width]
+│   ├── contributions-chart.svg    # 12-Month bar chart with streak & active days stats
+│   ├── repo-trucktalk.svg         # Featured repo: TruckTalk AI
+│   ├── repo-codesentinel.svg      # Featured repo: Code Sentinel
+│   ├── repo-soulspace.svg         # Featured repo: SoulSpace
+│   └── contrib-graph.svg          # 52-Week contribution graph in brand electric blue
+├── data/
+│   └── contributions.json         # Cached contribution data refreshed by the Action
+├── fonts/
+│   ├── InstrumentSerif-Regular.ttf
+│   ├── InstrumentSerif-Italic.ttf
+│   └── SpaceMono-Regular.ttf
+├── scripts/
+│   └── generate_cards.py          # Unified Python script generating all cards
+├── requirements.txt               # Dependencies: fonttools, brotli, pillow, requests
+└── README.md                      # GitHub profile entry point
+```
 
-3. Go to the repo's **Actions** tab → "Update profile art" → **Run workflow** once by hand to confirm it commits successfully. After that it runs daily on its own (06:17 UTC).
+---
 
-## Regenerating things
+## 🚀 Local Generation & Commands
 
-- **New photo** → drop it in as `source-photo.png`, then:
-  ```
-  pip install -r scripts/requirements.txt
-  python scripts/prep_photo.py source-photo.png
-  python scripts/make_ascii_svg.py source-prepped.png siddh-ascii.svg
-  ```
-- **Info card text** → edit the `ROWS` list in `scripts/make_info_card.py`, then `python scripts/make_info_card.py`.
-- **Heatmap** → runs automatically via the Action; to force it locally: `python scripts/fetch_contributions.py Siddhantsatote && python scripts/render_heatmap_svg.py`.
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-## Notes
+### 2. Render Cards (Animated)
+```bash
+python scripts/generate_cards.py
+```
 
-- All three SVGs already have real content baked in: your actual photo (ASCII-ified), your actual info, and your real contribution data (281 contributions, longest streak 6 days, as of today).
-- The heatmap scrapes `github.com/users/Siddhantsatote/contributions` — public HTML, no token needed.
-- If GitHub tweaks that page's markup again, `fetch_contributions.py` pulls counts from the `<tool-tip>` text (`"N contributions on <date>."`) — check that regex first if the Action starts failing.
+### 3. Fetch Fresh Data & Render
+```bash
+python scripts/generate_cards.py --fetch
+```
+
+### 4. STATIC Mode (Screenshot / Preview Frame)
+```bash
+# Windows PowerShell
+$env:STATIC="1"; python scripts/generate_cards.py; Remove-Item Env:STATIC
+
+# Linux / macOS
+STATIC=1 python scripts/generate_cards.py
+```
+In `STATIC=1` mode, all CSS keyframes and delays are suppressed, rendering the crisp final frame immediately for screenshotting or static viewing.
+
+---
+
+## ⚙️ Features & Specifications
+
+- **Compatibility with GitHub `<img>` Tags**: Cards are embedded via `<img>` tags. All fonts are dynamically subsetted using `pyftsubset` (`fonttools`) and embedded inline as base64 WOFF data URIs. No external web font requests are blocked.
+- **Top-to-Bottom Staggered Cascade**: Delays cascade seamlessly from the hero card down through the tiles, monthly charts, featured repositories, and contribution heatmap.
+- **Accessibility & Reduced Motion**: Automatically disables animations under `@media (prefers-reduced-motion: reduce)`.
+- **Automated Daily Sync**: `.github/workflows/update-cards.yml` fetches latest commit counts daily at 06:17 UTC, recalculates monthly totals and streaks, and commits refreshed SVGs.

@@ -49,3 +49,4 @@ jobs:
             git commit -m "chore: auto-update contribution data and animated profile cards [skip ci]"
             git push
           fi
+

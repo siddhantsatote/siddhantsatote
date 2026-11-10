@@ -12,6 +12,8 @@ import json
 import base64
 import io
 import re
+import html
+import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
 from collections import defaultdict
 from fontTools import subset
@@ -32,6 +34,12 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
 os.makedirs(FONTS_DIR, exist_ok=True)
 
+def xml_esc(val) -> str:
+    """Safely escapes text for inclusion inside XML elements and attributes."""
+    if val is None:
+        return ""
+    return html.escape(str(val), quote=True)
+
 # -----------------------------------------------------------------------------
 # Font Management & pyftsubset Subsetting
 # -----------------------------------------------------------------------------
@@ -51,7 +59,7 @@ def ensure_master_fonts():
             urllib.request.urlretrieve(url, dest)
 
 def subset_to_woff_b64(font_filename: str, chars: str) -> str:
-    """Subset a font to only the given characters and return as base64 WOFF."""
+    """Subset a font to only the given raw characters and return as base64 WOFF."""
     font_path = os.path.join(FONTS_DIR, font_filename)
     if not os.path.exists(font_path):
         ensure_master_fonts()
@@ -62,8 +70,8 @@ def subset_to_woff_b64(font_filename: str, chars: str) -> str:
     options.desubroutinize = True
     options.drop_tables += ["name", "OS/2"]
 
-    # Deduplicate chars & ensure basic whitespace
-    unique_text = "".join(sorted(set(chars + " 0123456789.,:-/")))
+    # Deduplicate raw chars & ensure basic whitespace and punctuation
+    unique_text = "".join(sorted(set(chars + " 0123456789.,:-/&→↗•★")))
 
     font = subset.load_font(font_path, options)
     subsetter = subset.Subsetter(options=options)
@@ -174,18 +182,18 @@ def load_contributions():
 # -----------------------------------------------------------------------------
 def generate_scanline_portrait(start_x=530, start_y=55, target_w=340, target_h=310):
     """
-    Renders a sophisticated horizontal scanline vector portrait
-    from the pre-masked ASCII density matrix, matching Image 1's halftone aesthetic.
+    Renders a horizontal scanline vector portrait
+    from the pre-masked ASCII density matrix, matching the halftone aesthetic.
     """
     if not os.path.exists(ASCII_SOURCE):
-        return ""
+        return "", ""
 
     with open(ASCII_SOURCE, "r", encoding="utf-8") as f:
         content = f.read()
 
     lines = re.findall(r"<text[^>]*>(.*?)</text>", content)
     if not lines:
-        return ""
+        return "", ""
 
     # Density mapping
     def get_cls(ch):
@@ -241,14 +249,15 @@ def generate_scanline_portrait(start_x=530, start_y=55, target_w=340, target_h=3
     opacity3 = "1" if STATIC_MODE else "0"
     opacity4 = "1" if STATIC_MODE else "0"
 
-    return f"""
+    svg_markup = f"""
     <g stroke="#6e6e6a" stroke-linecap="round">
       <path class="p-l1" d="{d1}" stroke-width="1.0" opacity="{0.55 if STATIC_MODE else opacity1}" />
       <path class="p-l2" d="{d2}" stroke-width="1.8" opacity="{0.75 if STATIC_MODE else opacity2}" />
       <path class="p-l3" d="{d3}" stroke-width="2.8" opacity="{0.90 if STATIC_MODE else opacity3}" />
       <path class="p-l4" d="{d4}" stroke-width="3.8" opacity="{1.00 if STATIC_MODE else opacity4}" />
     </g>
-    """, anim_css
+    """
+    return svg_markup, anim_css
 
 # -----------------------------------------------------------------------------
 # Card Renderers
@@ -258,18 +267,19 @@ def render_hero_card():
     """Card 1: Hero Card with Name, Role Pill, Bio, Link, and Scanline Portrait."""
     portrait_svg, portrait_css = generate_scanline_portrait(start_x=545, start_y=55, target_w=330, target_h=310)
 
-    # Text content to subset
-    mono_text = "■ FULL-STACK & AI SYSTEMS BUILDER siddhantsatote.github.io ↗"
-    serif_text = "Siddhant Satote"
+    # Raw text content to subset
+    mono_raw = "■ FULL-STACK & AI SYSTEMS BUILDER siddhantsatote.github.io ↗"
+    serif_raw = "Siddhant Satote"
 
-    mono_b64 = subset_to_woff_b64("SpaceMono-Regular.ttf", mono_text)
-    serif_b64 = subset_to_woff_b64("InstrumentSerif-Regular.ttf", serif_text)
-    italic_b64 = subset_to_woff_b64("InstrumentSerif-Italic.ttf", serif_text)
+    mono_b64 = subset_to_woff_b64("SpaceMono-Regular.ttf", mono_raw)
+    serif_b64 = subset_to_woff_b64("InstrumentSerif-Regular.ttf", serif_raw)
+    italic_b64 = subset_to_woff_b64("InstrumentSerif-Italic.ttf", serif_raw)
 
     if STATIC_MODE:
         anim_css = ""
         eyebrow_anim = ""
         name_anim = ""
+        name2_anim = ""
         bio_anim = ""
         link_anim = ""
     else:
@@ -329,13 +339,13 @@ def render_hero_card():
   <!-- Eyebrow Pill -->
   <g {eyebrow_anim}>
     <rect x="48" y="52" width="9" height="9" rx="2" fill="#2b5cff"/>
-    <text x="68" y="60" font-family="'Space Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.8" fill="#6b7280">FULL-STACK &amp; AI SYSTEMS ENGINEER</text>
+    <text x="68" y="60" font-family="'Space Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.8" fill="#6b7280">{xml_esc('FULL-STACK & AI SYSTEMS ENGINEER')}</text>
   </g>
 
   <!-- Name Headline -->
   <g>
     <text x="48" y="165" {name_anim} font-family="'Instrument Serif', serif" font-size="88" fill="#111110" font-weight="400">Siddhant</text>
-    <text x="48" y="248" {name2_anim if not STATIC_MODE else ''} font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="88" fill="#111110" font-weight="400">Satote</text>
+    <text x="48" y="248" {name2_anim} font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="88" fill="#111110" font-weight="400">Satote</text>
   </g>
 
   <!-- Bio One-liner -->
@@ -346,7 +356,7 @@ def render_hero_card():
 
   <!-- Website Link with Arrow -->
   <g {link_anim}>
-    <text x="48" y="378" font-family="'Space Mono', monospace" font-size="13" font-weight="500" fill="#2b5cff">siddhantsatote.github.io ↗</text>
+    <text x="48" y="378" font-family="'Space Mono', monospace" font-size="13" font-weight="500" fill="#2b5cff">siddhantsatote.github.io &#x2197;</text>
   </g>
 
   <!-- Halftone Scanline Portrait -->
@@ -355,9 +365,13 @@ def render_hero_card():
     return svg
 
 def render_tile(category: str, headline: str, description: str, bg_color: str, text_color: str, arrow_color: str, delay_s: float):
-    """Renders one of the three colored linked tiles (380x350)."""
-    mono_b64 = subset_to_woff_b64("SpaceMono-Regular.ttf", f"{category} → ↗")
-    italic_b64 = subset_to_woff_b64("InstrumentSerif-Italic.ttf", headline)
+    """Renders one of the three colored linked tiles (380x340)."""
+    # Raw texts for font subsetting
+    mono_raw = f"{category} → ↗"
+    italic_raw = headline
+
+    mono_b64 = subset_to_woff_b64("SpaceMono-Regular.ttf", mono_raw)
+    italic_b64 = subset_to_woff_b64("InstrumentSerif-Italic.ttf", italic_raw)
 
     if STATIC_MODE:
         anim_css = ""
@@ -372,7 +386,7 @@ def render_tile(category: str, headline: str, description: str, bg_color: str, t
         """
         elem_anim = 'class="tile-content"'
 
-    # Split description into 2-3 lines cleanly
+    # Split description into lines cleanly
     words = description.split(" ")
     lines = []
     curr = []
@@ -388,9 +402,9 @@ def render_tile(category: str, headline: str, description: str, bg_color: str, t
     desc_spans = ""
     for idx, l in enumerate(lines):
         y_pos = 250 + idx * 24
-        desc_spans += f'<text x="36" y="{y_pos}" font-family="-apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif" font-size="14.5" fill="{text_color}" opacity="0.94">{l}</text>\n'
+        desc_spans += f'<text x="36" y="{y_pos}" font-family="-apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif" font-size="14.5" fill="{text_color}" opacity="0.94">{xml_esc(l)}</text>\n'
 
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 340" width="380" height="340">
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 340" width="380" height="340">
   <defs>
     <style>
       @font-face {{
@@ -421,16 +435,17 @@ def render_tile(category: str, headline: str, description: str, bg_color: str, t
 
   <g {elem_anim}>
     <!-- Top Tracker Category & Arrow -->
-    <text x="36" y="52" font-family="'Space Mono', monospace" font-size="13" font-weight="700" letter-spacing="2" fill="{text_color}">{category}</text>
-    <text x="344" y="52" font-family="'Space Mono', monospace" font-size="20" font-weight="400" fill="{arrow_color}" text-anchor="end">→</text>
+    <text x="36" y="52" font-family="'Space Mono', monospace" font-size="13" font-weight="700" letter-spacing="2" fill="{text_color}">{xml_esc(category)}</text>
+    <text x="344" y="52" font-family="'Space Mono', monospace" font-size="20" font-weight="400" fill="{arrow_color}" text-anchor="end">&#x2192;</text>
 
     <!-- Center Serif Italic Headline -->
-    <text x="36" y="160" font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="46" fill="{text_color}">{headline}</text>
+    <text x="36" y="160" font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="46" fill="{text_color}">{xml_esc(headline)}</text>
 
     <!-- Bottom Description -->
     {desc_spans}
   </g>
 </svg>"""
+    return svg
 
 def render_contributions_chart_card(data):
     """Card 3: 12-Month Bar Chart + Right-side Streak, Active Days & Busiest Day Stats."""
@@ -441,7 +456,7 @@ def render_contributions_chart_card(data):
     total_d = f"{data['total_days']}"
     busiest_cnt = str(data["busiest_count"])
 
-    # Fonts subsetting
+    # Fonts subsetting raw text
     all_text = f"THE LAST 12 MONTHS ON GITHUB {total} contributions {longest} days current streak and the longest {active}/{total_d} with a commit {busiest_cnt} on busiest day Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec 0123456789"
     mono_b64 = subset_to_woff_b64("SpaceMono-Regular.ttf", all_text)
     serif_b64 = subset_to_woff_b64("InstrumentSerif-Regular.ttf", all_text)
@@ -495,11 +510,14 @@ def render_contributions_chart_card(data):
             bars_svg += f'<text x="{x + bar_width/2}" y="{y - 10}" {tag_peak} font-family="\'Space Mono\', monospace" font-size="11" font-weight="700" fill="#2b5cff" text-anchor="middle">{m["count"]:,}</text>\n'
 
         # Month label below
-        bars_svg += f'<text x="{x + bar_width/2}" y="{baseline_y + 24}" font-family="\'Space Mono\', monospace" font-size="11" fill="#71717a" text-anchor="middle">{m["label"]}</text>\n'
+        bars_svg += f'<text x="{x + bar_width/2}" y="{baseline_y + 24}" font-family="\'Space Mono\', monospace" font-size="11" fill="#71717a" text-anchor="middle">{xml_esc(m["label"])}</text>\n'
 
     if STATIC_MODE:
         anim_css = ""
         stats_anim = ""
+        r1_anim = ""
+        r2_anim = ""
+        r3_anim = ""
     else:
         anim_css = """
         @keyframes fadeUp {
@@ -556,10 +574,10 @@ def render_contributions_chart_card(data):
   <rect x="1" y="1" width="918" height="418" rx="24" fill="#f6f6f4" stroke="#e3e3de" stroke-width="1.5"/>
 
   <!-- Left Header -->
-  <g {stats_anim if not STATIC_MODE else ''}>
+  <g {stats_anim}>
     <text x="48" y="58" font-family="'Space Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.8" fill="#6b7280">THE LAST 12 MONTHS ON GITHUB</text>
     <text x="48" y="128">
-      <tspan font-family="'Instrument Serif', serif" font-size="64" fill="#111110">{total}</tspan>
+      <tspan font-family="'Instrument Serif', serif" font-size="64" fill="#111110">{xml_esc(total)}</tspan>
       <tspan font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="64" fill="#111110"> contributions</tspan>
     </text>
   </g>
@@ -572,9 +590,9 @@ def render_contributions_chart_card(data):
 
   <!-- Right Column Metrics -->
   <!-- Metric 1: Streak -->
-  <g {r1_anim if not STATIC_MODE else ''}>
+  <g {r1_anim}>
     <text x="640" y="112">
-      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#111110">{longest}</tspan>
+      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#111110">{xml_esc(longest)}</tspan>
       <tspan font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="46" fill="#111110"> days</tspan>
     </text>
     <text x="640" y="136" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#6b7280">current streak, and the longest</text>
@@ -583,10 +601,10 @@ def render_contributions_chart_card(data):
   <line x1="640" y1="165" x2="870" y2="165" stroke="#e3e3de" stroke-width="1"/>
 
   <!-- Metric 2: Active Days -->
-  <g {r2_anim if not STATIC_MODE else ''}>
+  <g {r2_anim}>
     <text x="640" y="222">
-      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#111110">{active}</tspan>
-      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#9ca3af"> / {total_d}</tspan>
+      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#111110">{xml_esc(active)}</tspan>
+      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#9ca3af"> / {xml_esc(total_d)}</tspan>
     </text>
     <text x="640" y="246" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#6b7280">days with a commit</text>
   </g>
@@ -594,8 +612,8 @@ def render_contributions_chart_card(data):
   <line x1="640" y1="275" x2="870" y2="275" stroke="#e3e3de" stroke-width="1"/>
 
   <!-- Metric 3: Busiest Day -->
-  <g {r3_anim if not STATIC_MODE else ''}>
-    <text x="640" y="332" font-family="'Instrument Serif', serif" font-size="46" fill="#111110">{busiest_cnt}</text>
+  <g {r3_anim}>
+    <text x="640" y="332" font-family="'Instrument Serif', serif" font-size="46" fill="#111110">{xml_esc(busiest_cnt)}</text>
     <text x="640" y="356" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#6b7280">on the busiest day</text>
   </g>
 </svg>"""
@@ -628,7 +646,7 @@ def render_featured_repo_card(repo_name: str, category_tag: str, description: st
         pill_w = len(t) * 7.5 + 20
         pills_svg += f"""
         <rect x="{curr_x}" y="145" width="{pill_w:.1f}" height="26" rx="6" fill="#ebebe8" stroke="#deded9" stroke-width="1"/>
-        <text x="{curr_x + pill_w/2:.1f}" y="162" font-family="'Space Mono', monospace" font-size="11" fill="#4b5563" text-anchor="middle">{t}</text>
+        <text x="{curr_x + pill_w/2:.1f}" y="162" font-family="'Space Mono', monospace" font-size="11" fill="#4b5563" text-anchor="middle">{xml_esc(t)}</text>
         """
         curr_x += pill_w + 10
 
@@ -663,35 +681,35 @@ def render_featured_repo_card(repo_name: str, category_tag: str, description: st
 
   <g {card_anim}>
     <!-- Top Category Tracker & Arrow Link -->
-    <text x="48" y="42" font-family="'Space Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5" fill="#6b7280">{category_tag}</text>
-    <text x="872" y="46" font-family="'Space Mono', monospace" font-size="20" fill="#2b5cff" text-anchor="end">↗</text>
+    <text x="48" y="42" font-family="'Space Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.5" fill="#6b7280">{xml_esc(category_tag)}</text>
+    <text x="872" y="46" font-family="'Space Mono', monospace" font-size="20" fill="#2b5cff" text-anchor="end">&#x2197;</text>
 
     <!-- Repo Name in Serif Italic -->
-    <text x="48" y="88" font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="38" fill="#111110">{repo_name}</text>
+    <text x="48" y="88" font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="38" fill="#111110">{xml_esc(repo_name)}</text>
 
     <!-- Description -->
-    <text x="48" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#4b5563">{description}</text>
+    <text x="48" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#4b5563">{xml_esc(description)}</text>
 
     <!-- Tech Stack Pills -->
     {pills_svg}
 
     <!-- Right-aligned Star / Metadata -->
-    <text x="872" y="162" font-family="'Space Mono', monospace" font-size="11" fill="#71717a" text-anchor="end">★ Public Repository</text>
+    <text x="872" y="162" font-family="'Space Mono', monospace" font-size="11" fill="#71717a" text-anchor="end">&#x2605; Public Repository</text>
   </g>
 </svg>"""
     return svg
 
 def render_contribution_graph_card(data):
-    """Card 5: 52-Week Contribution Heatmap in Brand Blue (Image 4)."""
+    """Card 5: 52-Week Contribution Heatmap in Brand Blue."""
     conts = data["raw_contributions"]
 
-    # Text subsetting
+    # Raw text subsetting
     all_text = "Every day, in blue REFRESHED DAILY less more Dec Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov"
     mono_b64 = subset_to_woff_b64("SpaceMono-Regular.ttf", all_text)
     serif_b64 = subset_to_woff_b64("InstrumentSerif-Regular.ttf", all_text)
     italic_b64 = subset_to_woff_b64("InstrumentSerif-Italic.ttf", all_text)
 
-    # Blue Theme Palette (matching Image 4)
+    # Blue Theme Palette
     PALETTE = {
         0: "#ebebe8", # Base subtle light gray
         1: "#b8d1ff", # Soft ice blue
@@ -700,14 +718,12 @@ def render_contribution_graph_card(data):
         4: "#003ad6"  # Deep vivid cobalt
     }
 
-    # Slice the last 52 full weeks (364 or 371 days)
-    # Align to Sunday
+    # Slice the last 52 full weeks
     latest_c = conts[-1]
     latest_dt = datetime.strptime(latest_c["date"], "%Y-%m-%d").date()
 
-    # Find the Sunday before 52 weeks ago
     target_start_dt = latest_dt - timedelta(days=52 * 7)
-    days_to_sunday = (target_start_dt.weekday() + 1) % 7 # weekday: Mon=0, Sun=6 -> (6+1)%7 = 0
+    days_to_sunday = (target_start_dt.weekday() + 1) % 7
     start_dt = target_start_dt - timedelta(days=days_to_sunday)
 
     sub_conts = [c for c in conts if datetime.strptime(c["date"], "%Y-%m-%d").date() >= start_dt]
@@ -754,12 +770,12 @@ def render_contribution_graph_card(data):
             cell_anim = f'style="opacity: 0; animation: cellIn 0.35s ease-out {delay:.3f}s forwards;"'
 
         cnt_str = f"{item['count']} contributions" if item['count'] != 1 else "1 contribution"
-        cells_svg += f'<rect x="{x:.1f}" y="{y:.1f}" width="{cell_size}" height="{cell_size}" rx="2.5" fill="{color}" {cell_anim}><title>{cnt_str} on {item.get("date", "")}</title></rect>\n'
+        cells_svg += f'<rect x="{x:.1f}" y="{y:.1f}" width="{cell_size}" height="{cell_size}" rx="2.5" fill="{color}" {cell_anim}><title>{xml_esc(cnt_str)} on {xml_esc(item.get("date", ""))}</title></rect>\n'
 
     # Month labels SVG
     month_svg = ""
     for m in month_labels:
-        month_svg += f'<text x="{m["x"]:.1f}" y="{start_y + 7 * row_step + 18}" font-family="\'Space Mono\', monospace" font-size="10.5" fill="#71717a">{m["name"]}</text>\n'
+        month_svg += f'<text x="{m["x"]:.1f}" y="{start_y + 7 * row_step + 18}" font-family="\'Space Mono\', monospace" font-size="10.5" fill="#71717a">{xml_esc(m["name"])}</text>\n'
 
     # Legend at bottom right
     leg_x = start_x + 52 * col_step - 140
@@ -935,16 +951,20 @@ def main():
     print("-> Rendering contrib-graph.svg...")
     cards["contrib-graph.svg"] = render_contribution_graph_card(data)
 
-    # Write all cards to disk
+    # Validate XML and write all cards to disk
     for filename, content in cards.items():
+        try:
+            ET.fromstring(content)
+        except Exception as err:
+            raise RuntimeError(f"XML Validation Error in {filename}: {err}")
+
         out_path = os.path.join(OUTPUT_DIR, filename)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(content)
         size_kb = len(content) / 1024
-        print(f"  ✓ Saved {filename} ({size_kb:.1f} KB)")
+        print(f"  ✓ Valid XML: Saved {filename} ({size_kb:.1f} KB)")
 
-    print("✨ All cards rendered successfully into cards/!")
+    print("✨ All cards rendered & validated successfully into cards/!")
 
 if __name__ == "__main__":
     main()
-

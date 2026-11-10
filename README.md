@@ -2,22 +2,16 @@
 
 <!-- Hero Card -->
 <a href="https://siddhantsatote.github.io">
-  <img src="cards/hero.svg" width="100%" alt="Siddhant Satote — Full-Stack &amp; AI Systems Engineer" />
+  <img src="cards/hero.svg" width="100%" alt="Siddhant Satote — Full-Stack and AI Systems Engineer" />
 </a>
 
 <br><br>
 
 <!-- Three Linked Tiles in a Row (Width 32.5% Each) -->
 <p align="center">
-  <a href="https://github.com/siddhantsatote?tab=repositories">
-    <img src="cards/tile-build.svg" width="32.5%" alt="Build — 40+ Repositories" />
-  </a>
-  <a href="https://www.linkedin.com/in/siddhantsatote/" target="_blank">
-    <img src="cards/tile-lead.svg" width="32.5%" alt="Lead — AtherHacks" />
-  </a>
-  <a href="https://github.com/siddhantsatote/trucktalk-ai">
-    <img src="cards/tile-explore.svg" width="32.5%" alt="Systems — AI &amp; Avionics" />
-  </a>
+  <a href="https://github.com/siddhantsatote?tab=repositories"><img src="cards/tile-build.svg" width="32.5%" alt="Build — 40+ Repositories" /></a>
+  <a href="https://www.linkedin.com/in/siddhantsatote/" target="_blank"><img src="cards/tile-lead.svg" width="32.5%" alt="Lead — AtherHacks" /></a>
+  <a href="https://github.com/siddhantsatote/trucktalk-ai"><img src="cards/tile-explore.svg" width="32.5%" alt="Systems — AI and Avionics" /></a>
 </p>
 
 <br>

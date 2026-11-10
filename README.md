@@ -23,25 +23,6 @@
 
 <br><br>
 
-<!-- Featured Repositories Stack -->
-<a href="https://github.com/siddhantsatote/trucktalk-ai">
-  <img src="cards/repo-trucktalk.svg" width="100%" alt="Featured: TruckTalk AI" />
-</a>
-
-<br><br>
-
-<a href="https://github.com/siddhantsatote/code-sentinel">
-  <img src="cards/repo-codesentinel.svg" width="100%" alt="Featured: Code Sentinel" />
-</a>
-
-<br><br>
-
-<a href="https://github.com/siddhantsatote/soulspace">
-  <img src="cards/repo-soulspace.svg" width="100%" alt="Featured: SoulSpace" />
-</a>
-
-<br><br>
-
 <!-- 52-Week Contribution Heatmap in Brand Blue -->
 <a href="https://github.com/siddhantsatote">
   <img src="cards/contrib-graph.svg" width="100%" alt="Every day, in blue — Live Contribution Graph" />

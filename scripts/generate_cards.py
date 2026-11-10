@@ -919,35 +919,7 @@ def main():
     print("-> Rendering contributions-chart.svg...")
     cards["contributions-chart.svg"] = render_contributions_chart_card(data)
 
-    # 4. Featured Repo Cards
-    print("-> Rendering repo-trucktalk.svg...")
-    cards["repo-trucktalk.svg"] = render_featured_repo_card(
-        repo_name="trucktalk-ai",
-        category_tag="AI & VOICE SYSTEMS",
-        description="AI-powered hands-free voice assistant and real-time fleet communication hub.",
-        tags=["TypeScript", "FastAPI", "WebSockets", "Groq LLM"],
-        delay_s=0.3
-    )
-
-    print("-> Rendering repo-codesentinel.svg...")
-    cards["repo-codesentinel.svg"] = render_featured_repo_card(
-        repo_name="code-sentinel",
-        category_tag="SECURITY & STATIC ANALYSIS",
-        description="Automated code audit tool detecting vulnerabilities, leaks, and anti-patterns.",
-        tags=["TypeScript", "AST Analysis", "Security", "GitHub API"],
-        delay_s=0.4
-    )
-
-    print("-> Rendering repo-soulspace.svg...")
-    cards["repo-soulspace.svg"] = render_featured_repo_card(
-        repo_name="soulspace",
-        category_tag="FULL-STACK PLATFORM",
-        description="Mental wellness companion featuring mindful reflection and mood analytics.",
-        tags=["Next.js", "React", "TailwindCSS", "Node.js"],
-        delay_s=0.5
-    )
-
-    # 5. 52-Week Contribution Graph Card
+    # 4. 52-Week Contribution Graph Card
     print("-> Rendering contrib-graph.svg...")
     cards["contrib-graph.svg"] = render_contribution_graph_card(data)
 

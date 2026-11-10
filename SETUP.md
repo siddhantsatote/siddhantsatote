@@ -18,9 +18,6 @@ Inspired by modern high-contrast editorial typography (Instrument Serif and Spac
 │   ├── tile-lead.svg              # Linked tile 2: Lead (AtherHacks) [32.5% width]
 │   ├── tile-explore.svg           # Linked tile 3: Systems (AI & Avionics) [32.5% width]
 │   ├── contributions-chart.svg    # 12-Month bar chart with streak & active days stats
-│   ├── repo-trucktalk.svg         # Featured repo: TruckTalk AI
-│   ├── repo-codesentinel.svg      # Featured repo: Code Sentinel
-│   ├── repo-soulspace.svg         # Featured repo: SoulSpace
 │   └── contrib-graph.svg          # 52-Week contribution graph in brand electric blue
 ├── data/
 │   └── contributions.json         # Cached contribution data refreshed by the Action

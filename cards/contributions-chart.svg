@@ -50,7 +50,7 @@
   <g class="st-card">
     <text x="48" y="58" font-family="'Space Mono', monospace" font-size="11" font-weight="700" letter-spacing="1.8" fill="#6b7280">THE LAST 12 MONTHS ON GITHUB</text>
     <text x="48" y="128">
-      <tspan font-family="'Instrument Serif', serif" font-size="64" fill="#111110">1,678</tspan>
+      <tspan font-family="'Instrument Serif', serif" font-size="64" fill="#111110">1,683</tspan>
       <tspan font-family="'Instrument Serif Italic', 'Instrument Serif', serif" font-style="italic" font-size="64" fill="#111110"> contributions</tspan>
     </text>
   </g>
@@ -77,7 +77,7 @@
 <text x="399.0" y="374" font-family="'Space Mono', monospace" font-size="11" fill="#71717a" text-anchor="middle">Sep</text>
 <rect x="426" y="344" width="30" height="6" rx="6" fill="#141413" style="transform-origin: 441.0px 350px; animation: barGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.65s backwards;"/>
 <text x="441.0" y="374" font-family="'Space Mono', monospace" font-size="11" fill="#71717a" text-anchor="middle">Oct</text>
-<rect x="468" y="344" width="30" height="6" rx="6" fill="#141413" style="transform-origin: 483.0px 350px; animation: barGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.70s backwards;"/>
+<rect x="468" y="342" width="30" height="8" rx="6" fill="#141413" style="transform-origin: 483.0px 350px; animation: barGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.70s backwards;"/>
 <text x="483.0" y="374" font-family="'Space Mono', monospace" font-size="11" fill="#71717a" text-anchor="middle">Nov</text>
 <rect x="510" y="344" width="30" height="6" rx="6" fill="#d4d4d0" style="transform-origin: 525.0px 350px; animation: barGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s backwards;"/>
 <text x="525.0" y="374" font-family="'Space Mono', monospace" font-size="11" fill="#71717a" text-anchor="middle">Dec</text>
@@ -101,7 +101,7 @@
   <!-- Metric 2: Active Days -->
   <g class="st-r2">
     <text x="640" y="222">
-      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#111110">228</tspan>
+      <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#111110">229</tspan>
       <tspan font-family="'Instrument Serif', serif" font-size="46" fill="#9ca3af"> / 366</tspan>
     </text>
     <text x="640" y="246" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#6b7280">days with a commit</text>
